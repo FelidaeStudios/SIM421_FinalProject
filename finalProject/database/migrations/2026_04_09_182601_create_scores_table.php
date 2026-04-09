@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('score_multiplier', function (Blueprint $table) {
+        Schema::create('scores', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Multiplier::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(\App\Models\MultiplierCost::class)->constrained()->cascadeOnDelete();
+            $table->unsignedInteger('score');
+            // $table->foreignIdFor(\App\Models\User::class)->constrained();
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('score_multiplier');
+        Schema::dropIfExists('scores');
     }
 };
