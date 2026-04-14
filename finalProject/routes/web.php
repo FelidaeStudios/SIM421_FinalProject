@@ -13,7 +13,7 @@ Route::view('/', 'home');
 //Route::view('/info', 'info'); <- Implement if time
 
 //Game pages
-//Route::get('/game', ...)
+Route::get('/game', [GameController::class, 'play'])
 
 //Authentication: Registration
 Route::get('/register', [RegisteredUserController::class, 'create']);

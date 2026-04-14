@@ -14,6 +14,7 @@ class ScoreController extends Controller
 
        Score::create([
         'score' => 1
+        //'user' => 1
        ]);
 
     }
