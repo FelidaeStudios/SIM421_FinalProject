@@ -10,10 +10,12 @@ class ScoreController extends Controller
 {
     
 
-    public function incrementScoreByOne(){
-
+    public function incrementScoreByOne(Request $request){
+    
+        $value = $request->query('score');
+        Log::debug($value);
        Score::create([
-        'score' => 1
+        'score' => $value
         //'user' => 1
        ]);
 
