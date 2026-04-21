@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('scores', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('score');
-            // $table->foreignIdFor(\App\Models\User::class)->constrained();
+            $table->unsignedInteger('currency')->default(0);
             $table->timestamps();
         });
     }

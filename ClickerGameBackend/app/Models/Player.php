@@ -17,7 +17,7 @@ class Player extends Model
 
     public function currentPoints()
     {
-        return $this->hasOne(Points::class);
+        return $this->hasOne(Currency::class);
     }
 
     public function automationAmount()
