@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use App\Models\Score;
+use App\Models\Leaderboard;
 
 class ScoreController extends Controller
 {
@@ -14,9 +15,14 @@ class ScoreController extends Controller
     
         $value = $request->query('score');
         $currency = $request->query('currency');
+
+        $userId = $request->query('user_id');
+        
         Log::debug("Value is " . $value);
         Log::debug("Currency is " . $currency);
-        if($value == null){
+        Log::debug("User id is " . $userId);
+
+        if($value == null || $userId == null ){
             return;
         }
 
@@ -25,5 +31,32 @@ class ScoreController extends Controller
         'currency' => $currency
         //'user' => 1
         ]);
+
+        // Leaderboard::updateOrCreate([
+        //     ['user_id' =>  $userId], // Search criteria
+        //     ['score' => $value] 
+        // ]);
+
+        Log::debug("Value is " . $value);
+
+        // Leaderboard::create(
+        //     [
+        //         'user_id' => $userId,
+        //     'score' => $value
+        
+        //      ]
+        // );
+
+        //  Leaderboard::create([
+        // 'score' => $value,
+        // 'user_id' => $userId
+        // //'user' => 1
+        // ]);
+
+        $flight = Leaderboard::updateOrCreate(
+            ['user_id' => $userId],
+            ['score' => $value]
+        );
     }
 }
+
