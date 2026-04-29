@@ -15,7 +15,6 @@ class ScoreController extends Controller
     
         $value = $request->query('score');
         $currency = $request->query('currency');
-
         $userId = $request->query('user_id');
         
         Log::debug("Value is " . $value);
@@ -23,40 +22,24 @@ class ScoreController extends Controller
         Log::debug("User id is " . $userId);
 
         if($value == null || $userId == null ){
-            return;
+            return response()->json(['error' => 'Missing required parameters'], 400);
         }
 
         Score::create([
         'score' => $value,
         'currency' => $currency
-        //'user' => 1
         ]);
 
-        // Leaderboard::updateOrCreate([
-        //     ['user_id' =>  $userId], // Search criteria
-        //     ['score' => $value] 
-        // ]);
+        //Log::debug("Value is " . $value);
 
-        Log::debug("Value is " . $value);
-
-        // Leaderboard::create(
-        //     [
-        //         'user_id' => $userId,
-        //     'score' => $value
-        
-        //      ]
-        // );
-
-        //  Leaderboard::create([
-        // 'score' => $value,
-        // 'user_id' => $userId
-        // //'user' => 1
-        // ]);
-
-        $flight = Leaderboard::updateOrCreate(
+        $scores = Leaderboard::updateOrCreate(
             ['user_id' => $userId],
             ['score' => $value]
         );
+
+        $leaderboard = Leaderboard::orderBy('score', 'desc')->get();
+
+        return response()->json($leaderboard);
     }
 }
 
